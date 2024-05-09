@@ -4,15 +4,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
 @RunWith(Parameterized.class)
 public class LionInvalidSexParameterizedTest {
     private final String sex;
     private final Feline feline;
+    private final String expectedMessage;
 
     // Конструктор класса, принимающий параметр пола животного
     public LionInvalidSexParameterizedTest(String sex) {
         this.sex = sex;
         this.feline = new Feline();
+        this.expectedMessage = "Используйте допустимые значения пола животного - самец или самка";
     }
 
     @Parameterized.Parameters(name = "Test {index}: sex: {0}")
@@ -25,9 +32,12 @@ public class LionInvalidSexParameterizedTest {
     }
 
     // Тестовый метод, ожидающий выброс исключения
-    @Test(expected = Exception.class)
-    public void exceptionMessageErrorTest() throws Exception {
+    @Test
+    public void exceptionMessageErrorTest() {
         //В этом месте ожидаем, что будет выброшено исключение при создании объекта Lion
-        new Lion(sex, feline);
+        Exception exception = assertThrows(Exception.class, () -> {
+            new Lion(sex, feline);
+        });
+        assertEquals(expectedMessage, exception.getMessage());
     }
 }
