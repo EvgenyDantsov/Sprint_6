@@ -22,7 +22,9 @@ public class FelineKittensParameterizedTest {
         return new Object[][]{
                 {1, 1},
                 {3, 3},
-                {0, 0}
+                {0, 0},
+                {5, 3},
+                {0, 5}
         };
     }
 
@@ -30,6 +32,6 @@ public class FelineKittensParameterizedTest {
     @Test
     public void getKittensFelineTest() {
         // Проверяем, что метод getKittens(int) возвращает ожидаемое количество котят
-        assertEquals(expectedKittensCount, feline.getKittens(inputKittensCount));
+        assertEquals("Ожидаемое количество котят не совпадает с фактическим", expectedKittensCount, feline.getKittens(inputKittensCount));
     }
 }
